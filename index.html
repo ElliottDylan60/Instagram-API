@@ -1,0 +1,40 @@
+<html>
+    <style>
+        #wrapper{
+            overflow: hidden;
+            overflow-x: scroll;
+            scrollbar-width: none;
+        }
+        #mediaContainer{
+            width: 6100px;
+        }
+        .media{
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        
+    </style>
+    <head>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="mediaContainer">
+
+            </div>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        $.getJSON('https://graph.facebook.com/v15.0/ID?fields=media%7Bmedia_type%2C%20media_url%7D&access_token=TOKEN', function(data){
+            for(let i = 0; i < 25; i++){
+                if(data['media']['data'][i]['media_type'] === 'IMAGE'){
+                    document.getElementById("mediaContainer").innerHTML += "<img class='media' src='"+data['media']['data'][i]['media_url']+"' alt='Social Post' width='300' height='300'>";
+                }else if(data['media']['data'][i]['media_type'] === 'VIDEO'){
+                    document.getElementById("mediaContainer").innerHTML += "<video class='media' width='300' height='300' controls><source src='"+data['media']['data'][i]['media_url']+"'></video>";
+                }
+            }
+        });
+    </script>
+</html>
