@@ -10,7 +10,7 @@ You can check out a live version of the code running on my [website](http://96.1
 
 
 
-### Questions
-If you have any questions feel free to email me:
+## Contact
+If you have any questions feel free to contact me:
 
-ElliottDylan@protonmail.com
+elliottdylan@protonmail.com
