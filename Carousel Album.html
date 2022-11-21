@@ -1,0 +1,79 @@
+<html>
+    <style>
+        #wrapper{
+            overflow-x: scroll;
+            scrollbar-width: none;
+        }
+        #mediaContainer{
+            width: 7700px;
+        }
+        .media{
+            float: left;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        
+        
+        .Album{
+            float: left;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        .AlbumMedia{
+            float: left;
+            width: 300px;
+            height: 300px
+        }
+
+
+
+
+    </style>
+    <head>
+        <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="mediaContainer">
+                <!--
+                <div class="Album">
+                    <img class="AlbumMedia" src="https://scontent-sea1-1.cdninstagram.com/v/t51.29350-15/314654656_189462523571666_4515229022930339903_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8ae9d6&_nc_ohc=KXHHbIHye3gAX8WQgHs&_nc_ht=scontent-sea1-1.cdninstagram.com&edm=AL-3X8kEAAAA&oh=00_AfD1HmATQ9gqXN3XV2w_rfdcAH7PBet8aFcnQhcu505Scg&oe=638090BE">
+                    <img class="AlbumMedia" src="https://static.wixstatic.com/media/d672b9_59c155fe1a59452b9b2e878d16e873f0~mv2.png/v1/fill/w_85,h_68,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Burg_Logo_Red-White.png">
+                    <img class="AlbumMedia" src="https://static.wixstatic.com/media/d672b9_acab3a09e7af489c8357869344c89933~mv2.png/v1/fill/w_355,h_355,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Capture_PNG.png">
+                </div>
+            -->
+                <!--<img class="media" scr="" width='300' height='300' onclick=\"javascript:window.location=""\>-->
+                <!--<video class="media" width='300' height='300' controls poster=""><source src=""></video>-->
+            </div>
+        </div>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+
+        
+        $.getJSON('https://graph.facebook.com/v15.0/17841400673298959?fields=media%7Bchildren%7Bmedia_url%7D%2C%20media_url%2C%20media_type%2C%20thumbnail_url%2C%20permalink%7D&access_token=EAAMgeZCyDA1oBAChViRo00hQvXNPhmswyGEqbdlJJqdYrmFNWZAxznJyxt4Qp0ZALrgxZCJ0ZBszEYgcGHC1YDbGdgmAgM1wLZARDZCleGZCNvn2u3YGTiLc8ZCmW67WLr3uHzvZAUYSyLyTQw4DjDySz8HA2e6mVAVNwGHOat1vnCuxCd9yZC1rjjGNuJHg5V8qY0ZD', function(data){
+            for(let i = 0; i < 25; i++){
+                if(data['media']['data'][i]['media_type'] === 'IMAGE'){
+                    document.getElementById("mediaContainer").innerHTML += "<img class='media' src='"+data['media']['data'][i]['media_url']+"' alt='Social Post' width='300' height='300' onclick=\"javascript:window.location='"+data['media']['data'][i]['permalink']+"'\">";
+                }else if(data['media']['data'][i]['media_type'] === 'VIDEO'){
+                    document.getElementById("mediaContainer").innerHTML += "<video class='media' width='300' height='300' controls poster='"+data['media']['data'][i]['thumbnail_url']+"'><source src='"+data['media']['data'][i]['media_url']+"'></video>";
+                }else if (data['media']['data'][i]['media_type'] ==='CAROUSEL_ALBUM'){
+                    
+                    var children = "";
+                    for(let j = 0; j < data['media']['data'][i]['children']['data'].length; j++){
+                        children += "<img class='AlbumMedia' src='"+data['media']['data'][i]['children']['data'][j]['media_url']+"'>";
+                    }
+                    document.getElementById("mediaContainer").innerHTML += "<div class='Album'>"+children+"</div>";
+                    
+                }
+            }
+        });
+    </script>
+</html>
