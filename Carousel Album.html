@@ -58,7 +58,7 @@
     <script>
 
         
-        $.getJSON('https://graph.facebook.com/v15.0/17841400673298959?fields=media%7Bchildren%7Bmedia_url%7D%2C%20media_url%2C%20media_type%2C%20thumbnail_url%2C%20permalink%7D&access_token=EAAMgeZCyDA1oBAChViRo00hQvXNPhmswyGEqbdlJJqdYrmFNWZAxznJyxt4Qp0ZALrgxZCJ0ZBszEYgcGHC1YDbGdgmAgM1wLZARDZCleGZCNvn2u3YGTiLc8ZCmW67WLr3uHzvZAUYSyLyTQw4DjDySz8HA2e6mVAVNwGHOat1vnCuxCd9yZC1rjjGNuJHg5V8qY0ZD', function(data){
+        $.getJSON('https://graph.facebook.com/v15.0/{ID}?fields=media%7Bchildren%7Bmedia_url%7D%2C%20media_url%2C%20media_type%2C%20thumbnail_url%2C%20permalink%7D&access_token={AccessToken}', function(data){
             for(let i = 0; i < 25; i++){
                 if(data['media']['data'][i]['media_type'] === 'IMAGE'){
                     document.getElementById("mediaContainer").innerHTML += "<img class='media' src='"+data['media']['data'][i]['media_url']+"' alt='Social Post' width='300' height='300' onclick=\"javascript:window.location='"+data['media']['data'][i]['permalink']+"'\">";
